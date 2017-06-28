@@ -38,9 +38,25 @@ volScalarField alpha
         "gas_alpha",
         runTime.timeName(),
         mesh,
-        IOobject::NO_READ,
+        IOobject::READ_IF_PRESENT,
         IOobject::AUTO_WRITE
     ),
     mesh,
     dimensionSet(0, 2, -1, 0, 0)
+);
+
+//- Allocating memory for scalar dissipation rate [1/s]
+Info<< "Creating field chi\n" << endl;
+volScalarField chi
+(
+    IOobject
+    (
+        "chi",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh,
+    dimensionSet(0, 0, -1, 0, 0)
 );

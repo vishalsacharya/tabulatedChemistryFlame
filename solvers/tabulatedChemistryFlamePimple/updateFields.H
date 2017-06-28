@@ -7,13 +7,18 @@
 
 	Info<< "Update fields... " ;
 
+	// Update scalar dissipation rate
+	chi = 2.0 * alpha * magSqr(fvc::grad(Z));
+	chi.correctBoundaryConditions();
+
 	// Adiabatic library
 	const double defect = 0.;
 
 	// Internal fields
 	{
-		const scalarField& ZCells = Z.internalField();
-		const scalarField& pCells = p.internalField(); 
+		const scalarField& ZCells   = Z.internalField();
+		const scalarField& pCells   = p.internalField(); 
+		const scalarField& chiCells = chi.internalField(); 
 
 		scalarField& TCells      = T.ref();
 		scalarField& rhoCells    = rho.ref();
@@ -23,8 +28,7 @@
 
 		forAll(ZCells, celli)
 		{
-			//double max_chi = max(small_chi_st,chi_st[celli]);
-			const double max_chi = 1.;	//TODO
+			double max_chi = max(small_chi_st, chiCells[celli]);
 
 			//- Pure oxidizer
 			if (ZCells[celli]<=small_eps)
@@ -57,6 +61,7 @@
 	{
 		fvPatchScalarField& pZ     = Z.boundaryFieldRef()[patchi];
 		fvPatchScalarField& pp     = p.boundaryFieldRef()[patchi];
+		fvPatchScalarField& pchi   = chi.boundaryFieldRef()[patchi];
 
 		fvPatchScalarField& prho   = rho.boundaryFieldRef()[patchi];
 		fvPatchScalarField& pT     = T.boundaryFieldRef()[patchi];
@@ -66,8 +71,7 @@
 		
 		forAll(pZ, facei)
 		{
-			//double max_chi = max(small_chi_st, pchi_st[facei]);
-			const double max_chi = 1.;	//TODO
+			double max_chi = max(small_chi_st, pchi[facei]);
 
 			//- Pure oxidizer
 			if (pZ[facei]<=0.)
