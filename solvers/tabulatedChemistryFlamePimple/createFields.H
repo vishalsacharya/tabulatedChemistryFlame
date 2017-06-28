@@ -75,6 +75,7 @@ volScalarField psi
 dimensionedScalar rhoMax(pimple.dict().lookup("rhoMax"));
 dimensionedScalar rhoMin(pimple.dict().lookup("rhoMin"));
 
+#include "readingTabulation.H"
 #include "updateFields.H"
 
 #include "compressibleCreatePhi.H"

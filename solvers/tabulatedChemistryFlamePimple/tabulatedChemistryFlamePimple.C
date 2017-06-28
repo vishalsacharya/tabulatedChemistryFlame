@@ -59,7 +59,6 @@ int main(int argc, char *argv[])
     #include "createControl.H"
     #include "createTimeControls.H"
     #include "initContinuityErrs.H"
-    #include "readingTabulation.H"
     #include "createFieldRefs.H"
     #include "createFields.H"
     #include "createFvOptions.H"
@@ -117,6 +116,7 @@ int main(int argc, char *argv[])
         }
 
         runTime.write();
+	#include "reconstructFields.H"
 
         Info << "ExecutionTime = " << runTime.elapsedCpuTime()   << " s"
              << "  ClockTime = "   << runTime.elapsedClockTime() << " s"

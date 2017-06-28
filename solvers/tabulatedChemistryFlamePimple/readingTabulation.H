@@ -1,9 +1,33 @@
+//- Read options
+Info<< "Reading Solver options\n" << endl;
+IOdictionary solverOptions
+(
+	IOobject
+	(
+		"solverOptions",
+		U.time().constant(),
+		U.db(),
+		IOobject::MUST_READ,
+		IOobject::NO_WRITE
+	)
+);
+
 //- Tabulated chemistry
 OpenSMOKE::NonAdiabaticFlameletLibraryReader tabulatedChemistry;
 
-boost::filesystem::path library_folder = "/home/chimica2/cuoci/OpenFOAM/cuoci-3.0.x/mySolvers/tabulatedChemistryFlame/run/tutorials/coflowFlame/library/OutputXML";
-tabulatedChemistry.SetLibraryFolder(library_folder);
-//tabulatedChemistry.SetSpeciesToExtract(list_of_species);
+//- Importing tabulated chemistry
+{
+	Foam::string library_path = solverOptions.lookup("libraryPath");
+	boost::filesystem::path library_folder = library_path;
+	tabulatedChemistry.SetLibraryFolder(library_folder);
+}
+
+//- List of available species
+{
+	std::vector<std::string> list_of_species;
+	tabulatedChemistry.GetSpeciesAvailable(list_of_species);
+	tabulatedChemistry.SetSpeciesToExtract(list_of_species);
+}
 
 //- Set adiabatic mode
 tabulatedChemistry.SetAdiabaticMode();
@@ -11,3 +35,10 @@ tabulatedChemistry.SetAdiabaticMode();
 //- Read all flamelet
 tabulatedChemistry.Read();
 tabulatedChemistry.Summary();
+
+//- Names of species in tabulation
+Info << "List of available species..." << endl;
+for (int j=0;j<tabulatedChemistry.number_of_species();j++)
+	Info << j+1 << " " << tabulatedChemistry.species()[j] << endl;
+
+
