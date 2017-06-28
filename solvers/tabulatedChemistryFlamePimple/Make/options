@@ -1,0 +1,36 @@
+EXE_INC = \
+    -w \
+      $(OPENFOAM_VERSION) \
+    -I$(BOOST_LIBRARY_PATH)/include \
+    -I$(EIGEN_LIBRARY_PATH) \
+    -I$(RAPIDXML_LIBRARY_PATH) \
+    -I$(MKL_PATH)/include \
+    -I../openSMOKEpp4tabulatedChemistryFlame \
+    -I$(LIB_SRC)/transportModels/compressible/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/compressible/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/cfdTools \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+
+EXE_LIBS = \
+    -L$(FOAM_USER_LIBBIN) \
+    -L$(BOOST_LIBRARY_PATH)/lib \
+    $(MKL_LIBS) \
+    -lcompressibleTransportModels \
+    -lfluidThermophysicalModels \
+    -lspecie \
+    -lturbulenceModels \
+    -lcompressibleTurbulenceModels \
+    -lfiniteVolume \
+    -lmeshTools \
+    -lsampling \
+    -lfvOptions \
+    -lgfortran \
+    $(MKL_LIBS) \
+    -lboost_date_time \
+    -lboost_filesystem \
+    -lboost_system \
+    -lboost_regex
