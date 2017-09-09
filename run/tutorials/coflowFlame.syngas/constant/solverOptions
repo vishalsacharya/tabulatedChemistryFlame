@@ -1,0 +1,25 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.2;
+    format      binary;
+    class       dictionary;
+    location    "constant";
+    object      flameletsProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+	//- Path to flamelet library
+	libraryPath	"../libraries/library.syngas/OutputXML";
+
+	//- Threshold on scalar dissipation rate [1/s]
+	chiMinimum	1e-5;
+	
+// ************************************************************************* //
+
