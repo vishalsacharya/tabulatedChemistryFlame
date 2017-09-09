@@ -9,47 +9,48 @@ FoamFile
 {
     version     2.2;
     format      ascii;
-    class       volVectorField;
+    class       volScalarField;
     location    "0";
-    object      U;
+    object      p;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 1 -1 0 0 0 0];
+dimensions      [ 1 -1 -2 0 0 0 0 ];
 
-Ufuel		uniform (0 0  0.5);
-Ucoflow		uniform (0 0  0.5);
-
-internalField   $Ucoflow;
+internalField   uniform 101325;
 
 boundaryField
 {
     inletfuel           
     {
-	type            fixedValue;
-        value           $Ufuel;
+        type            fixedFluxPressure;
+        value           $internalField;
     }
     inletair           
     {
-	type            fixedValue;
-        value           $Ucoflow;
+        type            fixedFluxPressure;
+        value           $internalField;
     }
-    outlet       
+    outlet
     {
-        type            inletOutlet;
-        inletValue      uniform (0 0 0);
-        value           uniform (0 0 0);
+        type            fixedFluxPressure;
+        value           $internalField;
     }
-    leftside      
+    leftside          
     {
-        type            pressureInletOutletVelocity;
-        value           uniform (0 0 0);
+        type            totalPressure;
+        p0              $internalField;
+        U               U;
         phi             phi;
+        rho             rho;
+        psi             none;
+        gamma           0;
+        value           $internalField;
     }
     burnerwall			   
     {
-	type            fixedValue;
-        value           uniform (0 0 0);
+        type            fixedFluxPressure;
+        value           $internalField;
     }
     axis			   
     {

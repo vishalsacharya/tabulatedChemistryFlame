@@ -25,7 +25,7 @@ solvers
         relTol              0;
     };
 
-    p
+    p_rgh
     {
         solver                GAMG;
         tolerance             1e-7;
@@ -37,7 +37,7 @@ solvers
         mergeLevels           1;
     };
 
-    pFinal
+    p_rghFinal
     {
         solver                GAMG;
         tolerance             1e-6;
@@ -90,9 +90,6 @@ PIMPLE
     nOuterCorrectors          1;
     nCorrectors               2;
     nNonOrthogonalCorrectors  0;
-
-    pMinFactor      0.1;
-    pMaxFactor      2.0;
 }
 
 relaxationFactors

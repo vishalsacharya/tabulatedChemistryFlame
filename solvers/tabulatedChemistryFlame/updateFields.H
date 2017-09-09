@@ -10,6 +10,8 @@
 	// Update scalar dissipation rate
 	chi = 2.0 * alpha * magSqr(fvc::grad(Z));
 	chi.max(chiMinimum);
+	if (chiUniform == true)
+		chi.min(chiMinimum);
 	chi.correctBoundaryConditions();
 
 	// Adiabatic library

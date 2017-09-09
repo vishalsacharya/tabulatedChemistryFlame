@@ -25,6 +25,9 @@ OpenSMOKE::NonAdiabaticFlameletLibraryReader tabulatedChemistry;
 //- Set minimum value of scalar dissipation rate
 dimensionedScalar chiMinimum( "chiMinimum", dimensionSet(0,0,-1,0,0,0,0), readScalar(solverOptions.lookup("chiMinimum")) );
 
+//- Set uniform value of scalar dissipation rate (only when starting a simulation)
+Switch chiUniform = Switch(solverOptions.lookup("chiUniform"));
+
 //- List of available species
 {
 	std::vector<std::string> list_of_species;

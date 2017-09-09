@@ -23,24 +23,28 @@ boundaryField
 {
     inletfuel           
     {
-        type            zeroGradient;
+        type           calculated;
+        value          $internalField;
     }
     inletair           
     {
-        type            zeroGradient;
+        type           calculated;
+        value          $internalField;
     }
     outlet
     {
-        type            fixedValue;
-        value           $internalField;
+        type           calculated;
+        value          $internalField;
     }
     leftside          
     {
-        type            zeroGradient;
+        type           calculated;
+        value          $internalField;
     }
     burnerwall			   
     {
-        type            zeroGradient;
+        type           calculated;
+        value          $internalField;
     }
     axis			   
     {

@@ -29,6 +29,9 @@ Description
 
 \*---------------------------------------------------------------------------*/
 
+// This is not a steady state simulation
+#define STEADYSTATE 0
+
 // OpenSMOKE++ Definitions
 #include "OpenSMOKEpp"
 #include "flames/flamelets/lookuptablereader/NonAdiabaticFlameletLibraryReader.h"
@@ -62,7 +65,7 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "createFvOptions.H"
     #include "createTimeControls.H"
-
+    
     if (!LTS)
     {
         #include "compressibleCourantNo.H"
@@ -102,14 +105,7 @@ int main(int argc, char *argv[])
             // --- Pressure corrector loop
             while (pimple.correct())
             {
-                if (pimple.consistent())
-                {
-                    #include "pcEqn.H"
-                }
-                else
-                {
                     #include "pEqn.H"
-                }
             }
 
 	    #include "updateFields.H"
