@@ -22,6 +22,9 @@ OpenSMOKE::NonAdiabaticFlameletLibraryReader tabulatedChemistry;
 	tabulatedChemistry.SetLibraryFolder(library_folder);
 }
 
+//- Set minimum value of scalar dissipation rate
+dimensionedScalar chiMinimum( "chiMinimum", dimensionSet(0,0,-1,0,0,0,0), readScalar(solverOptions.lookup("chiMinimum")) );
+
 //- List of available species
 {
 	std::vector<std::string> list_of_species;
